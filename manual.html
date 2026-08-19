@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>คู่มือการใช้งาน Workplace Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#111827;--i2:#374151;--i3:#6b7280;--i4:#9ca3af;
+  --bg:#f8f9fb;--w:#fff;--bd:#e5e7eb;
+  --lime:#b5e045;--blue:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;--purple:#7c3aed;
+  --blu-lt:#dbeafe;--grn-lt:#dcfce7;--amb-lt:#fef3c7;--pur-lt:#ede9fe;--red-lt:#fee2e2;
+  --r:10px;--rlg:16px;
+}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;background:var(--ink);color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 40px;text-align:center;position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(181,224,69,.15) 0%,transparent 70%);
+}
+.cover-logo{
+  width:72px;height:72px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);
+  border-radius:20px;display:flex;align-items:center;justify-content:center;
+  font-size:32px;margin-bottom:32px;position:relative;z-index:1;
+}
+.cover-title{font-size:42px;font-weight:800;letter-spacing:-.8px;line-height:1.1;margin-bottom:12px;position:relative;z-index:1;}
+.cover-sub{font-size:17px;color:rgba(255,255,255,.6);margin-bottom:40px;position:relative;z-index:1;}
+.cover-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--lime);color:var(--ink);
+  padding:8px 20px;border-radius:40px;font-size:13px;font-weight:700;
+  position:relative;z-index:1;
+}
+.cover-toc{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  max-width:700px;width:100%;margin-top:48px;position:relative;z-index:1;
+}
+.cover-toc-item{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:14px 16px;text-align:left;
+}
+.cti-num{font-size:11px;color:var(--lime);font-weight:700;letter-spacing:.5px;margin-bottom:4px;}
+.cti-title{font-size:13px;font-weight:600;color:#fff;}
+
+/* ── PAGE ── */
+.page-wrap{max-width:820px;margin:0 auto;padding:48px 32px;}
+@media print{
+  .cover{min-height:auto;padding:40px;}
+  .page-wrap{padding:32px 20px;}
+  .no-print{display:none!important;}
+  .page-break{page-break-before:always;}
+}
+
+/* ── SECTION HEADER ── */
+.sec-header{
+  display:flex;align-items:center;gap:16px;
+  padding:28px 32px;background:var(--w);
+  border-radius:var(--rlg);border:1px solid var(--bd);
+  margin-bottom:20px;margin-top:40px;
+}
+.sec-num{
+  width:48px;height:48px;border-radius:14px;background:var(--ink);
+  color:var(--lime);font-size:20px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.sec-title{font-size:22px;font-weight:800;letter-spacing:-.4px;}
+.sec-sub{font-size:13px;color:var(--i3);margin-top:2px;}
+
+/* ── CARD ── */
+.card{background:var(--w);border-radius:var(--rlg);border:1px solid var(--bd);margin-bottom:16px;overflow:hidden;}
+.card-body{padding:24px;}
+.step-title{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.step-num{
+  width:28px;height:28px;border-radius:50%;background:var(--ink);
+  color:#fff;font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.step-num.blue{background:var(--blue);}
+.step-num.green{background:var(--green);}
+.step-num.amber{background:var(--amber);}
+
+/* ── TIPS / NOTES ── */
+.tip{display:flex;gap:12px;padding:14px 16px;border-radius:var(--r);margin:14px 0;font-size:13.5px;}
+.tip-info{background:var(--blu-lt);border:1px solid #bfdbfe;}
+.tip-ok{background:var(--grn-lt);border:1px solid #bbf7d0;}
+.tip-warn{background:var(--amb-lt);border:1px solid #fde68a;}
+.tip-icon{font-size:18px;flex-shrink:0;line-height:1.4;}
+
+/* ── MOCK SCREEN ── */
+.mock-wrap{
+  background:#f0f2f5;border-radius:14px;padding:16px;
+  margin:18px 0;border:1px solid var(--bd);
+}
+.mock-label{font-size:11px;font-weight:700;color:var(--i3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;}
+.mock-phone{
+  width:280px;margin:0 auto;
+  background:#fff;border-radius:22px;overflow:hidden;
+  border:1.5px solid #d1d5db;
+  box-shadow:0 4px 20px rgba(0,0,0,.1);
+}
+.mock-desktop{
+  background:#fff;border-radius:12px;overflow:hidden;
+  border:1.5px solid #d1d5db;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.mock-topbar{
+  height:44px;background:#fff;border-bottom:1px solid #e5e7eb;
+  display:flex;align-items:center;padding:0 16px;gap:10px;
+}
+.mock-topbar-title{font-size:14px;font-weight:800;}
+.mock-topbar-date{font-size:11px;color:#9ca3af;}
+.mock-sidebar{
+  width:180px;background:#fff;border-right:1px solid #e5e7eb;
+  padding:14px 10px;
+}
+.mock-app{display:flex;}
+.mock-main{flex:1;padding:16px;background:#f8f9fb;}
+
+/* mini components */
+.mk-logo{display:flex;align-items:center;gap:8px;padding:0 0 14px;border-bottom:1px solid #e5e7eb;margin-bottom:10px;}
+.mk-logo-mark{width:26px;height:26px;background:#111827;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#b5e045;font-weight:800;}
+.mk-logo-text{font-size:12px;font-weight:800;}
+.mk-nav{display:flex;flex-direction:column;gap:2px;}
+.mk-navbtn{padding:7px 10px;border-radius:8px;font-size:11px;font-weight:600;color:#6b7280;display:flex;align-items:center;gap:7px;}
+.mk-navbtn.on{background:#b5e045;color:#111827;}
+.mk-navbtn-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;}
+.mk-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px;}
+.mk-stat{border-radius:10px;padding:10px 12px;}
+.mk-stat.pu{background:#ede9fe;}.mk-stat.bl{background:#dbeafe;}.mk-stat.te{background:#ccfbf1;}.mk-stat.gn{background:#dcfce7;}
+.mk-slbl{font-size:9px;font-weight:600;color:#6b7280;margin-bottom:3px;}
+.mk-sval{font-size:20px;font-weight:800;color:#111827;line-height:1;}
+.mk-card{background:#fff;border-radius:10px;padding:12px;border:1px solid #e5e7eb;margin-bottom:8px;}
+.mk-ctitle{font-size:11px;font-weight:800;margin-bottom:8px;}
+.mk-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.mk-chip{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+.mk-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f3f4f6;font-size:11px;}
+.mk-row:last-child{border-bottom:none;}
+
+/* auth mock */
+.mk-auth{padding:28px;max-width:300px;margin:0 auto;}
+.mk-auth-logo{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.mk-auth-mark{width:32px;height:32px;background:#111827;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#b5e045;font-weight:800;}
+.mk-auth-title{font-size:18px;font-weight:800;}
+.mk-tabs{display:flex;background:#f3f4f6;border-radius:8px;padding:2px;gap:2px;margin-bottom:16px;}
+.mk-tab{flex:1;padding:6px;border-radius:6px;text-align:center;font-size:11px;font-weight:700;color:#6b7280;}
+.mk-tab.on{background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,.1);}
+.mk-input{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:8px 12px;font-size:12px;color:#374151;margin-bottom:10px;background:#fff;}
+.mk-input.focus{border-color:#111827;}
+.mk-btn{width:100%;padding:10px;background:#111827;color:#fff;border-radius:8px;font-size:12px;font-weight:700;text-align:center;}
+.mk-btn.lime{background:#b5e045;color:#111827;}
+.mk-lbl{font-size:9.5px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+
+/* planner mock */
+.mk-plan-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:10px;}
+.mk-plan-row:last-child{border-bottom:none;}
+.mk-plan-date{width:60px;flex-shrink:0;}
+.mk-plan-d{font-size:11px;font-weight:800;}
+.mk-plan-w{font-size:9px;color:#9ca3af;}
+.mk-lopts{display:flex;gap:4px;flex-wrap:wrap;}
+.mk-lopt{padding:3px 8px;border-radius:20px;font-size:9.5px;font-weight:700;border:1.5px solid #e5e7eb;color:#6b7280;background:#fff;}
+.mk-lopt.sel{border-width:2px;}
+.mk-lopt.ns{background:#f9fafb;color:#9ca3af;}
+.mk-lopt.off{border-color:#2563eb;background:#dbeafe33;color:#2563eb;}
+.mk-lopt.wfh{border-color:#16a34a;background:#dcfce733;color:#16a34a;}
+.mk-lopt.lv{border-color:#be185d;background:#fce7f333;color:#be185d;}
+
+/* team table mock */
+.mk-tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:10px;}
+.mk-tbl th{padding:6px 8px;background:#f9fafb;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;font-size:9px;font-weight:700;color:#6b7280;text-transform:uppercase;white-space:nowrap;}
+.mk-tbl th:first-child{border-left:1px solid #e5e7eb;border-radius:8px 0 0 0;}
+.mk-tbl th:last-child{border-right:1px solid #e5e7eb;border-radius:0 8px 0 0;}
+.mk-tbl td{padding:6px 8px;border-bottom:1px solid #f3f4f6;vertical-align:middle;}
+.mk-tbl td:first-child{border-left:1px solid #e5e7eb;font-weight:700;}
+.mk-tbl td:last-child{border-right:1px solid #e5e7eb;}
+.mk-tbl tr:last-child td:first-child{border-radius:0 0 0 8px;}
+.mk-tbl tr:last-child td:last-child{border-radius:0 0 8px 0;}
+.mk-lchip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:9.5px;font-weight:700;white-space:nowrap;}
+.mk-lchip.e{background:#f9fafb;color:#9ca3af;font-style:italic;}
+.mk-today-th{background:#f0fdf4!important;color:#16a34a!important;}
+
+/* badge */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;}
+.badge-blue{background:var(--blu-lt);color:var(--blue);}
+.badge-green{background:var(--grn-lt);color:var(--green);}
+.badge-amber{background:var(--amb-lt);color:var(--amber);}
+.badge-red{background:var(--red-lt);color:var(--red);}
+
+/* steps list */
+.steps{display:flex;flex-direction:column;gap:0;}
+.step-item{display:flex;gap:16px;padding:14px 0;}
+.step-item+.step-item{border-top:1px dashed #e5e7eb;}
+.step-icon{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;margin-top:2px;
+}
+.step-icon.blue{background:var(--blu-lt);}
+.step-icon.green{background:var(--grn-lt);}
+.step-icon.amber{background:var(--amb-lt);}
+.step-icon.purple{background:var(--pur-lt);}
+.step-content-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+.step-content-desc{font-size:13px;color:var(--i2);line-height:1.6;}
+
+/* two col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+@media(max-width:600px){.two-col{grid-template-columns:1fr;}}
+
+/* arrow */
+.arrow-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;}
+.af-item{padding:6px 14px;border-radius:8px;font-size:12.5px;font-weight:700;background:var(--w);border:1.5px solid var(--bd);}
+.af-item.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.af-arrow{color:var(--i4);font-size:18px;}
+
+/* divider */
+.divider{height:1px;background:var(--bd);margin:32px 0;}
+
+/* quick ref table */
+.qr-table{width:100%;border-collapse:collapse;font-size:13px;}
+.qr-table th{text-align:left;padding:10px 14px;font-size:11px;color:var(--i3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bd);background:var(--bg);}
+.qr-table td{padding:11px 14px;border-bottom:1px solid var(--bd);vertical-align:top;}
+.qr-table tr:last-child td{border-bottom:none;}
+.qr-table tr:hover td{background:#fafafa;}
+
+/* print btn */
+.print-btn{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--ink);color:#fff;
+  padding:12px 20px;border-radius:12px;font-size:13px;font-weight:700;
+  border:none;cursor:pointer;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);transition:all .15s;
+  z-index:100;
+}
+.print-btn:hover{background:var(--blue);}
+@media print{.print-btn{display:none;}}
+
+/* highlight */
+.hl{background:#fef9c3;padding:1px 4px;border-radius:4px;font-weight:600;}
+code{background:#f3f4f6;padding:2px 7px;border-radius:5px;font-family:'DM Mono',monospace;font-size:12.5px;color:#374151;}
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══ -->
+<div class="cover">
+  <div class="cover-logo">📍</div>
+  <div class="cover-title">คู่มือการใช้งาน<br>Workplace Planner</div>
+  <div class="cover-sub">ระบบวางแผนสถานที่ทำงานล่วงหน้า สำหรับทีม</div>
+  <div class="cover-badge">⚡ ประหยัดพลังงาน · ใช้งานได้ทุกที่</div>
+  <div class="cover-toc">
+    <div class="cover-toc-item"><div class="cti-num">บทที่ 1</div><div class="cti-title">เริ่มต้นใช้งานครั้งแรก</div></div>
+    <div class="cover-toc-item"><div class="cti-num">บทที่ 2</div><div class="cti-title">การใช้งานประจำวัน</div></div>
+    <div class="cover-toc-item"><div class="cti-num">บทที่ 3</div><div class="cti-title">การแก้ไขข้อมูล</div></div>
+    <div class="cover-toc-item"><div class="cti-num">บทที่ 4</div><div class="cti-title">หน้า Dashboard</div></div>
+    <div class="cover-toc-item"><div class="cti-num">บทที่ 5</div><div class="cti-title">สำหรับผู้ดูแลระบบ</div></div>
+    <div class="cover-toc-item"><div class="cti-num">ภาคผนวก</div><div class="cti-title">คำถามที่พบบ่อย</div></div>
+  </div>
+</div>
+
+<!-- ══ PAGE CONTENT ══ -->
+<div class="page-wrap">
+
+<!-- ════════════════════════════════
+     บทที่ 1: เริ่มต้นครั้งแรก
+════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num">1</div>
+  <div><div class="sec-title">เริ่มต้นใช้งานครั้งแรก</div><div class="sec-sub">สำหรับพนักงานที่ยังไม่เคยเข้าใช้งานมาก่อน</div></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num blue">1</div>เปิด URL และเข้าหน้าเว็บ</div>
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:14px">เปิดเบราว์เซอร์บนมือถือหรือคอมพิวเตอร์ แล้วพิมพ์ URL ที่ Admin แจกให้ จะเห็นหน้า Login ดังนี้</p>
+
+    <div class="mock-wrap">
+      <div class="mock-label">📱 หน้าแรกที่จะเห็น</div>
+      <div class="mock-phone">
+        <div class="mk-auth">
+          <div class="mk-auth-logo">
+            <div class="mk-auth-mark">📍</div>
+            <div class="mk-auth-title">Workplace Planner</div>
+          </div>
+          <div style="font-size:16px;font-weight:800;margin-bottom:3px">ยินดีต้อนรับกลับ</div>
+          <div style="font-size:11px;color:#9ca3af;margin-bottom:16px">เข้าสู่ระบบเพื่อดูแผนงาน</div>
+          <div class="mk-tabs">
+            <div class="mk-tab on">เข้าสู่ระบบ</div>
+            <div class="mk-tab">ตั้งรหัสผ่านครั้งแรก</div>
+          </div>
+          <div class="mk-lbl">ชื่อผู้ใช้</div>
+          <div class="mk-input">username</div>
+          <div class="mk-lbl">รหัสผ่าน</div>
+          <div class="mk-input focus">••••••••</div>
+          <div class="mk-btn">เข้าสู่ระบบ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip tip-warn">
+      <div class="tip-icon">⚠️</div>
+      <div>ครั้งแรกที่ใช้งาน <strong>ยังไม่มีรหัสผ่าน</strong> ต้องตั้งรหัสผ่านก่อน โดยกดแท็บ <span class="hl">ตั้งรหัสผ่านครั้งแรก</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num blue">2</div>ตั้งรหัสผ่านครั้งแรก</div>
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:14px">กดแท็บ "ตั้งรหัสผ่านครั้งแรก" แล้วกรอกข้อมูล</p>
+
+    <div class="two-col">
+      <div class="mock-wrap" style="margin:0">
+        <div class="mock-label">📱 หน้าตั้งรหัสผ่าน</div>
+        <div class="mock-phone">
+          <div class="mk-auth">
+            <div style="font-size:15px;font-weight:800;margin-bottom:3px">ตั้งรหัสผ่านครั้งแรก</div>
+            <div style="font-size:10px;color:#9ca3af;margin-bottom:12px">กรอก username ที่ Admin สร้างให้</div>
+            <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px;font-size:10px;color:#d97706;margin-bottom:12px">⚠️ Admin ต้องสร้างบัญชีให้ก่อน</div>
+            <div class="mk-tabs">
+              <div class="mk-tab">เข้าสู่ระบบ</div>
+              <div class="mk-tab on">ตั้งรหัสผ่านครั้งแรก</div>
+            </div>
+            <div class="mk-lbl">ชื่อผู้ใช้ (จาก Admin)</div>
+            <div class="mk-input focus">somchai</div>
+            <div class="mk-lbl">รหัสผ่านใหม่ (≥ 6 ตัว)</div>
+            <div class="mk-input">••••••••</div>
+            <div class="mk-lbl">ยืนยันรหัสผ่าน</div>
+            <div class="mk-input">••••••••</div>
+            <div class="mk-btn">ตั้งรหัสผ่าน</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-icon blue">1️⃣</div>
+            <div><div class="step-content-title">กรอก Username</div><div class="step-content-desc">ชื่อผู้ใช้ที่ Admin สร้างให้ (รับแจ้งทาง Line / อีเมล)</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon blue">2️⃣</div>
+            <div><div class="step-content-title">ตั้งรหัสผ่านใหม่</div><div class="step-content-desc">ต้องมีอย่างน้อย <strong>6 ตัวอักษร</strong> ตั้งเองได้ตามใจ</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon blue">3️⃣</div>
+            <div><div class="step-content-title">ยืนยันรหัสผ่าน</div><div class="step-content-desc">พิมพ์รหัสผ่านเดิมอีกครั้ง ต้องตรงกัน</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon green">✅</div>
+            <div><div class="step-content-title">กด "ตั้งรหัสผ่าน"</div><div class="step-content-desc">ระบบจะบันทึก และให้กลับไป Login ด้วยรหัสที่ตั้งใหม่</div></div>
+          </div>
+        </div>
+        <div class="tip tip-info" style="margin-top:8px">
+          <div class="tip-icon">💡</div>
+          <div>แนะนำให้บุ๊คมาร์ค URL ไว้บนมือถือ เพื่อเข้าใช้งานได้รวดเร็ว</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num green">3</div>เข้าสู่ระบบสำเร็จ — หน้า Dashboard</div>
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:14px">หลัง Login สำเร็จ จะเห็นหน้า Dashboard สรุปสถานะทีมวันนี้</p>
+
+    <div class="mock-wrap">
+      <div class="mock-label">🖥️ หน้า Dashboard หลัง Login</div>
+      <div class="mock-desktop">
+        <div class="mock-topbar">
+          <div style="font-size:13px;color:#9ca3af">☰</div>
+          <div>
+            <div class="mock-topbar-title">Dashboard</div>
+            <div class="mock-topbar-date">26 มีนาคม 2568</div>
+          </div>
+          <div style="margin-left:auto;width:30px;height:30px;border-radius:50%;background:#ede9fe;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#7c3aed">สช</div>
+        </div>
+        <div class="mock-app">
+          <div class="mock-sidebar">
+            <div class="mk-logo"><div class="mk-logo-mark">📍</div><div class="mk-logo-text">WP Planner</div></div>
+            <div class="mk-nav">
+              <div class="mk-navbtn on">🏠 Dashboard</div>
+              <div class="mk-navbtn"><span class="mk-navbtn-dot"></span>ตารางทีม</div>
+              <div class="mk-navbtn"><span class="mk-navbtn-dot"></span>วางแผนของฉัน</div>
+              <div class="mk-navbtn"><span class="mk-navbtn-dot"></span>โปรไฟล์</div>
+            </div>
+          </div>
+          <div class="mock-main">
+            <div class="mk-stat-grid">
+              <div class="mk-stat pu"><div class="mk-slbl">🏢 เข้าออฟฟิศ</div><div class="mk-sval">8</div></div>
+              <div class="mk-stat bl"><div class="mk-slbl">🏠 WFH</div><div class="mk-sval">12</div></div>
+              <div class="mk-stat te"><div class="mk-slbl">📅 ลาหยุด</div><div class="mk-sval">2</div></div>
+              <div class="mk-stat gn"><div class="mk-slbl">❓ ยังไม่ระบุ</div><div class="mk-sval">3</div></div>
+            </div>
+            <div class="mk-card">
+              <div class="mk-ctitle">🏢 เข้าออฟฟิศวันนี้</div>
+              <div class="mk-chips">
+                <div class="mk-chip" style="background:#dbeafe;color:#2563eb">สมชาย</div>
+                <div class="mk-chip" style="background:#dbeafe;color:#2563eb">นภา</div>
+                <div class="mk-chip" style="background:#dbeafe;color:#2563eb">ประเสริฐ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     บทที่ 2: การใช้งานประจำวัน
+════════════════════════════════ -->
+<div class="sec-header page-break">
+  <div class="sec-num">2</div>
+  <div><div class="sec-title">การใช้งานประจำวัน</div><div class="sec-sub">วิธีวางแผนสถานที่ทำงานและดูตารางทีม</div></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num blue">●</div>วางแผนสถานที่ทำงานของฉัน</div>
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:16px">ไปที่เมนู <span class="hl">✏️ วางแผนของฉัน</span> เพื่อเลือกสถานที่แต่ละวัน</p>
+
+    <div class="two-col">
+      <div>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-icon blue">📌</div>
+            <div><div class="step-content-title">กดเมนู "วางแผนของฉัน"</div><div class="step-content-desc">อยู่ในแถบซ้ายหรือกดเมนู ☰ บนมือถือ</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon blue">📅</div>
+            <div><div class="step-content-title">เลือกสัปดาห์</div><div class="step-content-desc">กด ← ถัดไป → เพื่อเลื่อนสัปดาห์ หรือกด "สัปดาห์นี้" เพื่อกลับมาวันนี้</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon green">🏢</div>
+            <div><div class="step-content-title">กดเลือกสถานที่แต่ละวัน</div><div class="step-content-desc">เลือกได้: ออฟฟิศ / WFH / สาขาอื่น / ลาหยุด กดปุ่ม <strong>—</strong> เพื่อยกเลิกวันนั้น</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon green">💾</div>
+            <div><div class="step-content-title">กด "บันทึกแผน"</div><div class="step-content-desc">ข้อมูลจะบันทึกขึ้น Cloud ทันที ทีมจะเห็นแผนทันที</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="mock-wrap" style="margin:0">
+        <div class="mock-label">📱 หน้าวางแผนของฉัน</div>
+        <div class="mock-phone">
+          <div style="padding:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div style="font-size:11px;font-weight:800">← มี.ค. 24–30 →</div>
+              <div class="mk-btn lime" style="width:auto;padding:5px 12px;font-size:10px">💾 บันทึก</div>
+            </div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d" style="color:#16a34a">24 มี.ค.</div><div class="mk-plan-w">จ (วันนี้)</div></div>
+              <div class="mk-lopts"><div class="mk-lopt ns">—</div><div class="mk-lopt off">🏢 ออฟฟิศ</div><div class="mk-lopt">🏠 WFH</div></div>
+            </div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d">25 มี.ค.</div><div class="mk-plan-w">อ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt">—</div><div class="mk-lopt">🏢</div><div class="mk-lopt wfh">🏠 WFH</div></div>
+            </div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d">26 มี.ค.</div><div class="mk-plan-w">พ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt ns">—</div><div class="mk-lopt">🏢</div><div class="mk-lopt">🏠</div></div>
+            </div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d">27 มี.ค.</div><div class="mk-plan-w">พฤ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt">—</div><div class="mk-lopt off">🏢 ออฟฟิศ</div><div class="mk-lopt">🏠</div></div>
+            </div>
+            <div class="mk-plan-row" style="opacity:.35">
+              <div class="mk-plan-date"><div class="mk-plan-d">28 มี.ค.</div><div class="mk-plan-w">ศ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt lv">📅 ลา</div></div>
+            </div>
+            <div class="mk-plan-row" style="opacity:.35">
+              <div class="mk-plan-date"><div class="mk-plan-d">29 มี.ค.</div><div class="mk-plan-w">ส (หยุด)</div></div>
+              <div style="font-size:9px;color:#9ca3af">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip tip-ok" style="margin-top:14px">
+      <div class="tip-icon">✅</div>
+      <div><strong>วางแผนล่วงหน้าได้หลายสัปดาห์</strong> — กด → เพื่อไปสัปดาห์ถัดไป เลือกสถานที่ แล้วกดบันทึก ไม่ต้องทำทุกวัน</div>
+    </div>
+    <div class="tip tip-info">
+      <div class="tip-icon">💡</div>
+      <div>วันหยุดนักขัตฤกษ์จะแสดงสีแดง 🎌 ไม่ต้องระบุสถานที่ในวันนั้น</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num blue">●</div>ดูตารางทีม — เห็นแผนของทุกคน</div>
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:16px">ไปที่เมนู <span class="hl">🗓 ตารางทีม</span> เพื่อดูว่าใครอยู่ที่ไหนในแต่ละวัน</p>
+
+    <div class="mock-wrap">
+      <div class="mock-label">🖥️ หน้าตารางทีม</div>
+      <div class="mock-desktop">
+        <div style="padding:14px;overflow-x:auto">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <div style="font-size:10px;background:#f3f4f6;border-radius:6px;padding:4px 10px;font-weight:700">← ก่อนหน้า</div>
+            <div style="font-size:11px;font-weight:800;flex:1;text-align:center">24 มี.ค. – 30 มี.ค. 2568</div>
+            <div style="font-size:10px;background:#f3f4f6;border-radius:6px;padding:4px 10px;font-weight:700">ถัดไป →</div>
+          </div>
+          <table class="mk-tbl" style="min-width:500px">
+            <thead><tr>
+              <th>พนักงาน</th>
+              <th>24<br><span style="font-weight:400;font-size:8px">จ</span></th>
+              <th class="mk-today-th">25<br><span style="font-weight:400;font-size:8px">อ</span></th>
+              <th>26<br><span style="font-weight:400;font-size:8px">พ</span></th>
+              <th>27<br><span style="font-weight:400;font-size:8px">พฤ</span></th>
+              <th>28<br><span style="font-weight:400;font-size:8px">ศ</span></th>
+            </tr></thead>
+            <tbody>
+              <tr><td>สมชาย ใจดี</td><td><span class="mk-lchip" style="background:#dbeafe33;color:#2563eb">🏢 ออฟฟิศ</span></td><td><span class="mk-lchip" style="background:#dcfce733;color:#16a34a">🏠 WFH</span></td><td><span class="mk-lchip" style="background:#dbeafe33;color:#2563eb">🏢 ออฟฟิศ</span></td><td><span class="mk-lchip e">—</span></td><td><span class="mk-lchip" style="background:#fce7f333;color:#be185d">📅 ลา</span></td></tr>
+              <tr><td>นภา รักเรียน</td><td><span class="mk-lchip" style="background:#dcfce733;color:#16a34a">🏠 WFH</span></td><td><span class="mk-lchip" style="background:#dcfce733;color:#16a34a">🏠 WFH</span></td><td><span class="mk-lchip" style="background:#dcfce733;color:#16a34a">🏠 WFH</span></td><td><span class="mk-lchip" style="background:#dbeafe33;color:#2563eb">🏢 ออฟฟิศ</span></td><td><span class="mk-lchip e">—</span></td></tr>
+              <tr><td>ประเสริฐ มั่นคง</td><td><span class="mk-lchip" style="background:#dbeafe33;color:#2563eb">🏢 ออฟฟิศ</span></td><td><span class="mk-lchip e">—</span></td><td><span class="mk-lchip" style="background:#fef9c333;color:#d97706">🏙️ สาขา</span></td><td><span class="mk-lchip" style="background:#dbeafe33;color:#2563eb">🏢 ออฟฟิศ</span></td><td><span class="mk-lchip" style="background:#dbeafe33;color:#2563eb">🏢 ออฟฟิศ</span></td></tr>
+            </tbody>
+          </table>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <span class="mk-lchip" style="background:#dbeafe33;color:#2563eb;font-size:10px">🏢 ออฟฟิศ</span>
+            <span class="mk-lchip" style="background:#dcfce733;color:#16a34a;font-size:10px">🏠 WFH</span>
+            <span class="mk-lchip" style="background:#fef9c333;color:#d97706;font-size:10px">🏙️ สาขาอื่น</span>
+            <span class="mk-lchip" style="background:#fce7f333;color:#be185d;font-size:10px">📅 ลาหยุด</span>
+            <span class="mk-lchip" style="background:#fef2f2;color:#dc2626;font-size:10px">🎌 วันหยุด</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     บทที่ 3: การแก้ไขและลบ
+════════════════════════════════ -->
+<div class="sec-header page-break">
+  <div class="sec-num">3</div>
+  <div><div class="sec-title">การแก้ไขหรือลบข้อมูล</div><div class="sec-sub">แก้ไขแผนย้อนหลัง หรือเปลี่ยนแผนที่วางไว้แล้ว</div></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num amber">●</div>แก้ไขแผนที่วางไว้แล้ว (วันใดก็ได้)</div>
+
+    <div class="tip tip-info" style="margin-bottom:16px">
+      <div class="tip-icon">💡</div>
+      <div>ระบบอนุญาตให้แก้ไขย้อนหลังได้ทุกวัน ไม่มีข้อจำกัดเรื่องวันที่</div>
+    </div>
+
+    <div class="arrow-flow">
+      <div class="af-item active">เปิด "วางแผนของฉัน"</div>
+      <div class="af-arrow">→</div>
+      <div class="af-item">กดลูกศร ← ไปสัปดาห์ที่ต้องการ</div>
+      <div class="af-arrow">→</div>
+      <div class="af-item active">กดเลือกสถานที่ใหม่</div>
+      <div class="af-arrow">→</div>
+      <div class="af-item active">กด "บันทึกแผน"</div>
+    </div>
+
+    <div class="two-col" style="margin-top:16px">
+      <div class="mock-wrap" style="margin:0">
+        <div class="mock-label">📱 ก่อนแก้ไข — เลือกวันที่ต้องการ</div>
+        <div class="mock-phone">
+          <div style="padding:14px">
+            <div style="font-size:11px;font-weight:800;margin-bottom:10px;color:#d97706">← มี.ค. 17–23 (สัปดาห์ที่แล้ว)</div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d">20 มี.ค.</div><div class="mk-plan-w">พฤ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt">—</div><div class="mk-lopt off">🏢 ออฟฟิศ</div><div class="mk-lopt">🏠</div></div>
+            </div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d">21 มี.ค.</div><div class="mk-plan-w">ศ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt">—</div><div class="mk-lopt">🏢</div><div class="mk-lopt wfh">🏠 WFH</div></div>
+            </div>
+            <div style="margin-top:10px;font-size:10px;color:#9ca3af">← กดลูกศรซ้ายเพื่อย้อนกลับ</div>
+          </div>
+        </div>
+      </div>
+      <div class="mock-wrap" style="margin:0">
+        <div class="mock-label">📱 หลังแก้ไข — เลือกใหม่แล้วบันทึก</div>
+        <div class="mock-phone">
+          <div style="padding:14px">
+            <div style="font-size:11px;font-weight:800;margin-bottom:10px;color:#d97706">← มี.ค. 17–23 (สัปดาห์ที่แล้ว)</div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d">20 มี.ค.</div><div class="mk-plan-w">พฤ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt">—</div><div class="mk-lopt">🏢</div><div class="mk-lopt wfh">🏠 WFH</div></div>
+            </div>
+            <div class="mk-plan-row">
+              <div class="mk-plan-date"><div class="mk-plan-d">21 มี.ค.</div><div class="mk-plan-w">ศ</div></div>
+              <div class="mk-lopts"><div class="mk-lopt">—</div><div class="mk-lopt">🏢</div><div class="mk-lopt wfh">🏠 WFH</div></div>
+            </div>
+            <div style="margin-top:10px"><div class="mk-btn lime" style="padding:7px;font-size:10px">💾 บันทึกแผน</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num amber">●</div>ลบข้อมูลวันใดวันหนึ่ง (ยกเลิกแผน)</div>
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:16px">ถ้าต้องการลบแผนของวันใดออก (ให้กลับเป็นไม่ได้ระบุ) ทำดังนี้</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-icon amber">1️⃣</div>
+        <div><div class="step-content-title">ไปที่ "วางแผนของฉัน"</div><div class="step-content-desc">เลื่อนไปยังสัปดาห์ที่มีวันที่ต้องการลบ</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-icon amber">2️⃣</div>
+        <div>
+          <div class="step-content-title">กดปุ่ม <span style="background:#f9fafb;border:1.5px solid #e5e7eb;padding:2px 10px;border-radius:20px;font-size:13px;font-weight:700;color:#6b7280">—</span> ในวันนั้น</div>
+          <div class="step-content-desc">ปุ่ม <strong>—</strong> คือ "ไม่ระบุ" — การกดปุ่มนี้จะลบข้อมูลวันนั้นออก</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-icon green">3️⃣</div>
+        <div><div class="step-content-title">กด "บันทึกแผน"</div><div class="step-content-desc">ระบบจะลบข้อมูลวันนั้นออกจากฐานข้อมูล</div></div>
+      </div>
+    </div>
+
+    <div class="tip tip-warn">
+      <div class="tip-icon">⚠️</div>
+      <div>หลังเลือก <strong>—</strong> แล้วต้องกด <strong>"บันทึกแผน"</strong> ด้วย ไม่เช่นนั้นข้อมูลจะยังไม่ถูกลบ</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     บทที่ 4: Dashboard
+════════════════════════════════ -->
+<div class="sec-header page-break">
+  <div class="sec-num">4</div>
+  <div><div class="sec-title">หน้า Dashboard</div><div class="sec-sub">สรุปภาพรวมทีมวันนี้ — ทุกคนเห็นได้</div></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:16px">Dashboard แสดงข้อมูลของ <strong>วันนี้</strong> แบบ Real-time ทันที</p>
+
+    <div class="mock-wrap">
+      <div class="mock-label">🖥️ Dashboard — ตัวเลขสรุปวันนี้</div>
+      <div class="mock-desktop">
+        <div style="padding:16px">
+          <div class="mk-stat-grid" style="grid-template-columns:repeat(4,1fr)">
+            <div class="mk-stat pu"><div class="mk-slbl">🏢 เข้าออฟฟิศ</div><div class="mk-sval">9</div><div style="font-size:9px;color:#6b7280;margin-top:3px">36% ของทีม</div></div>
+            <div class="mk-stat bl"><div class="mk-slbl">🏠 Work from Home</div><div class="mk-sval">12</div><div style="font-size:9px;color:#6b7280;margin-top:3px">48% ของทีม</div></div>
+            <div class="mk-stat te"><div class="mk-slbl">📅 ลาหยุด</div><div class="mk-sval">1</div><div style="font-size:9px;color:#6b7280;margin-top:3px">4% ของทีม</div></div>
+            <div class="mk-stat gn"><div class="mk-slbl">❓ ยังไม่ระบุ</div><div class="mk-sval">3</div><div style="font-size:9px;color:#6b7280;margin-top:3px">12% ของทีม</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+            <div class="mk-card">
+              <div class="mk-ctitle">🏢 เข้าออฟฟิศวันนี้</div>
+              <div class="mk-chips">
+                <div class="mk-chip" style="background:#dbeafe;color:#2563eb">สมชาย</div>
+                <div class="mk-chip" style="background:#dbeafe;color:#2563eb">นภา</div>
+                <div class="mk-chip" style="background:#dbeafe;color:#2563eb">วิไล</div>
+                <div class="mk-chip" style="background:#dbeafe;color:#2563eb">อนุชา</div>
+              </div>
+            </div>
+            <div class="mk-card">
+              <div class="mk-ctitle">🏠 Work from Home วันนี้</div>
+              <div class="mk-chips">
+                <div class="mk-chip" style="background:#dcfce7;color:#16a34a">ประเสริฐ</div>
+                <div class="mk-chip" style="background:#dcfce7;color:#16a34a">กมล</div>
+                <div class="mk-chip" style="background:#dcfce7;color:#16a34a">สุภา</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:14px">
+      <div>
+        <div class="step-title" style="font-size:14px">ความหมายของตัวเลข</div>
+        <table class="qr-table" style="margin-top:8px">
+          <thead><tr><th>สี</th><th>หมายความว่า</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-blue" style="font-size:11px">🏢 ออฟฟิศ</span></td><td>มาทำงานที่สำนักงาน</td></tr>
+            <tr><td><span class="badge badge-green" style="font-size:11px">🏠 WFH</span></td><td>ทำงานจากบ้าน</td></tr>
+            <tr><td><span class="badge badge-amber" style="font-size:11px">📅 ลาหยุด</span></td><td>ลาป่วย / ลาพักร้อน</td></tr>
+            <tr><td><span class="badge" style="background:#f3f4f6;color:#6b7280;font-size:11px">❓ ยังไม่ระบุ</span></td><td>ยังไม่ได้วางแผน</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="tip tip-info" style="margin:0">
+          <div class="tip-icon">💡</div>
+          <div><strong>ตัวเลขอัปเดตอัตโนมัติ</strong> เมื่อเพื่อนในทีมบันทึกแผน กด Refresh เพื่อดูข้อมูลล่าสุด</div>
+        </div>
+        <div class="tip tip-warn" style="margin-top:10px">
+          <div class="tip-icon">📢</div>
+          <div>ถ้าเพื่อนในทีม "ยังไม่ระบุ" จำนวนมาก แจ้งให้เข้าไปวางแผนด้วยครับ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     บทที่ 5: Admin
+════════════════════════════════ -->
+<div class="sec-header page-break">
+  <div class="sec-num">5</div>
+  <div><div class="sec-title">สำหรับผู้ดูแลระบบ (Admin)</div><div class="sec-sub">ฟีเจอร์พิเศษสำหรับ Admin เท่านั้น</div></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num" style="background:var(--purple)">●</div>เมนูพิเศษของ Admin</div>
+
+    <div class="mock-wrap">
+      <div class="mock-label">🖥️ Sidebar Admin — จะเห็นเมนูเพิ่ม</div>
+      <div style="max-width:220px">
+        <div class="mock-desktop">
+          <div style="padding:12px">
+            <div class="mk-logo" style="padding-bottom:10px"><div class="mk-logo-mark">📍</div><div class="mk-logo-text">WP Planner</div></div>
+            <div class="mk-nav">
+              <div class="mk-navbtn on">🏠 Dashboard</div>
+              <div class="mk-navbtn"><span class="mk-navbtn-dot"></span>ตารางทีม</div>
+              <div class="mk-navbtn"><span class="mk-navbtn-dot"></span>วางแผนของฉัน</div>
+              <div class="mk-navbtn"><span class="mk-navbtn-dot"></span>โปรไฟล์</div>
+              <div style="font-size:9px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.8px;padding:10px 12px 4px">Admin</div>
+              <div class="mk-navbtn" style="color:#7c3aed">📊 สถิติรายสัปดาห์</div>
+              <div class="mk-navbtn" style="color:#7c3aed">📝 แก้แผนแทน User</div>
+              <div class="mk-navbtn" style="color:#7c3aed">👥 จัดการผู้ใช้</div>
+              <div class="mk-navbtn" style="color:#7c3aed">📍 สถานที่</div>
+              <div class="mk-navbtn" style="color:#7c3aed">🎌 วันหยุด</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <table class="qr-table">
+        <thead><tr><th>เมนู Admin</th><th>ทำอะไรได้บ้าง</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="badge" style="background:#ede9fe;color:#7c3aed">📊 สถิติรายสัปดาห์</span></td>
+            <td>ดูว่าพนักงานแต่ละคนทำงานที่ไหนกี่วัน ดูย้อนหลังได้ไม่จำกัด เฉพาะ Admin เท่านั้น</td>
+          </tr>
+          <tr>
+            <td><span class="badge" style="background:#ede9fe;color:#7c3aed">📝 แก้แผนแทน User</span></td>
+            <td>กรณีพนักงานแจ้งปากเปล่า Admin คีย์แผนแทนให้ได้</td>
+          </tr>
+          <tr>
+            <td><span class="badge" style="background:#ede9fe;color:#7c3aed">👥 จัดการผู้ใช้</span></td>
+            <td>เพิ่ม/แก้ไข/ลบพนักงาน, รีเซ็ตรหัสผ่าน</td>
+          </tr>
+          <tr>
+            <td><span class="badge" style="background:#ede9fe;color:#7c3aed">📍 สถานที่</span></td>
+            <td>เพิ่ม/แก้ไข/ลบสถานที่ทำงาน (icon + สี)</td>
+          </tr>
+          <tr>
+            <td><span class="badge" style="background:#ede9fe;color:#7c3aed">🎌 วันหยุด</span></td>
+            <td>เพิ่ม/ลบวันหยุดนักขัตฤกษ์ จะแสดงในตารางทีมทุกคน</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num" style="background:var(--purple)">●</div>เพิ่มพนักงานใหม่</div>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-icon purple">1️⃣</div>
+        <div><div class="step-content-title">ไปที่ Admin → จัดการผู้ใช้ → กด "+ เพิ่มผู้ใช้"</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-icon purple">2️⃣</div>
+        <div><div class="step-content-title">กรอก Username และชื่อ-นามสกุล</div><div class="step-content-desc">Username ต้องเป็นภาษาอังกฤษหรือตัวเลข ไม่มีช่องว่าง</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-icon purple">3️⃣</div>
+        <div><div class="step-content-title">เลือกสิทธิ์: User หรือ Admin</div><div class="step-content-desc">User = พนักงานทั่วไป | Admin = ผู้ดูแลระบบ</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-icon green">4️⃣</div>
+        <div><div class="step-content-title">แจ้ง Username ให้พนักงาน</div><div class="step-content-desc">พนักงานจะต้องไปตั้งรหัสผ่านเองผ่านหน้า "ตั้งรหัสผ่านครั้งแรก" — Admin ไม่รู้รหัสผ่านของพนักงาน</div></div>
+      </div>
+    </div>
+    <div class="tip tip-ok">
+      <div class="tip-icon">🔐</div>
+      <div>Admin <strong>ไม่สามารถ</strong>เห็นรหัสผ่านของพนักงาน ถ้าพนักงานลืม ให้กด <strong>รีเซ็ต PW</strong> แล้วพนักงานตั้งใหม่เอง</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="step-title"><div class="step-num" style="background:var(--purple)">●</div>ดูสถิติรายสัปดาห์ (Admin Only)</div>
+    <p style="font-size:13.5px;color:var(--i2);margin-bottom:14px">ดูได้ว่าพนักงานแต่ละคนในสัปดาห์นั้น ทำงานที่ไหนกี่วัน และดูย้อนหลังได้ไม่จำกัด</p>
+    <div class="mock-wrap">
+      <div class="mock-label">🖥️ หน้าสถิติรายสัปดาห์</div>
+      <div class="mock-desktop" style="padding:14px;overflow-x:auto">
+        <table class="mk-tbl" style="min-width:500px">
+          <thead><tr>
+            <th>พนักงาน</th>
+            <th>จ 24</th><th style="color:#16a34a">อ 25</th><th>พ 26</th><th>พฤ 27</th><th>ศ 28</th>
+            <th>รวม</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>สมชาย ใจดี</td>
+              <td><span style="background:#dbeafe22;color:#2563eb;padding:3px 6px;border-radius:6px;font-size:11px">🏢</span></td>
+              <td><span style="background:#dcfce722;color:#16a34a;padding:3px 6px;border-radius:6px;font-size:11px">🏠</span></td>
+              <td><span style="background:#dbeafe22;color:#2563eb;padding:3px 6px;border-radius:6px;font-size:11px">🏢</span></td>
+              <td style="color:#e5e7eb">—</td>
+              <td><span style="background:#fce7f322;color:#be185d;padding:3px 6px;border-radius:6px;font-size:11px">📅</span></td>
+              <td><strong>3 วัน</strong></td>
+            </tr>
+            <tr><td>นภา รักเรียน</td>
+              <td><span style="background:#dcfce722;color:#16a34a;padding:3px 6px;border-radius:6px;font-size:11px">🏠</span></td>
+              <td><span style="background:#dcfce722;color:#16a34a;padding:3px 6px;border-radius:6px;font-size:11px">🏠</span></td>
+              <td><span style="background:#dcfce722;color:#16a34a;padding:3px 6px;border-radius:6px;font-size:11px">🏠</span></td>
+              <td><span style="background:#dbeafe22;color:#2563eb;padding:3px 6px;border-radius:6px;font-size:11px">🏢</span></td>
+              <td style="color:#e5e7eb">—</td>
+              <td><strong>4 วัน</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+          <div style="background:#f9fafb;border-radius:10px;padding:12px">
+            <div style="font-weight:800;font-size:12px;margin-bottom:8px">สมชาย ใจดี</div>
+            <div style="font-size:11px;display:flex;justify-content:space-between;margin-bottom:4px"><span>🏢 ออฟฟิศ</span><strong>2 วัน</strong></div>
+            <div style="font-size:11px;display:flex;justify-content:space-between"><span>🏠 WFH</span><strong>1 วัน</strong></div>
+          </div>
+          <div style="background:#f9fafb;border-radius:10px;padding:12px">
+            <div style="font-weight:800;font-size:12px;margin-bottom:8px">นภา รักเรียน</div>
+            <div style="font-size:11px;display:flex;justify-content:space-between;margin-bottom:4px"><span>🏢 ออฟฟิศ</span><strong>1 วัน</strong></div>
+            <div style="font-size:11px;display:flex;justify-content:space-between"><span>🏠 WFH</span><strong>3 วัน</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     โปรไฟล์
+════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:var(--green)">+</div>
+  <div><div class="sec-title">แก้ไขโปรไฟล์และรหัสผ่าน</div><div class="sec-sub">ทุกคนทำได้เอง</div></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="two-col">
+      <div>
+        <div class="step-title" style="font-size:14px;margin-bottom:12px">แก้ไขชื่อ-นามสกุล</div>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-icon green">1️⃣</div>
+            <div><div class="step-content-desc">ไปที่เมนู <span class="hl">👤 โปรไฟล์</span></div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon green">2️⃣</div>
+            <div><div class="step-content-desc">แก้ไขชื่อในช่อง "ชื่อ-นามสกุล"</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon green">3️⃣</div>
+            <div><div class="step-content-desc">กด <strong>บันทึก</strong> — ชื่อจะอัปเดตในตารางทีมทันที</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="step-title" style="font-size:14px;margin-bottom:12px">เปลี่ยนรหัสผ่าน</div>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-icon amber">1️⃣</div>
+            <div><div class="step-content-desc">กรอก "รหัสผ่านเดิม" ก่อน</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon amber">2️⃣</div>
+            <div><div class="step-content-desc">กรอก "รหัสผ่านใหม่" และ "ยืนยัน"</div></div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon amber">3️⃣</div>
+            <div><div class="step-content-desc">กด <strong>เปลี่ยนรหัสผ่าน</strong></div></div>
+          </div>
+        </div>
+        <div class="tip tip-warn" style="margin-top:8px">
+          <div class="tip-icon">🔒</div>
+          <div>ถ้าลืมรหัสผ่าน ติดต่อ Admin ให้รีเซ็ตให้ได้เลย</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     FAQ
+════════════════════════════════ -->
+<div class="sec-header">
+  <div class="sec-num" style="background:#6b7280">?</div>
+  <div><div class="sec-title">คำถามที่พบบ่อย</div><div class="sec-sub">FAQ</div></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <table class="qr-table">
+      <thead><tr><th>คำถาม</th><th>คำตอบ</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Login ไม่ได้ บอกว่า "ไม่พบชื่อผู้ใช้"</strong></td>
+          <td>ติดต่อ Admin ให้สร้างบัญชีให้ก่อน</td>
+        </tr>
+        <tr>
+          <td><strong>Login ไม่ได้ บอกว่า "รหัสผ่านไม่ถูกต้อง"</strong></td>
+          <td>ตรวจสอบ Caps Lock หรือให้ Admin รีเซ็ตรหัสผ่านให้</td>
+        </tr>
+        <tr>
+          <td><strong>วางแผนแล้ว แต่เพื่อนไม่เห็น</strong></td>
+          <td>ต้องกด <strong>"บันทึกแผน"</strong> ก่อน และให้เพื่อนรีเฟรชหน้าเว็บ</td>
+        </tr>
+        <tr>
+          <td><strong>วางแผนย้อนหลังได้ไหม?</strong></td>
+          <td>ได้ครับ กดลูกศร ← ในหน้า "วางแผนของฉัน" เพื่อย้อนกลับสัปดาห์ที่แล้ว</td>
+        </tr>
+        <tr>
+          <td><strong>จะใช้จากมือถือได้ไหม?</strong></td>
+          <td>ได้เลย เปิด URL ผ่าน Safari หรือ Chrome บนมือถือ แนะนำให้ Add to Home Screen</td>
+        </tr>
+        <tr>
+          <td><strong>ข้อมูลหายหลังปิด browser?</strong></td>
+          <td>ข้อมูลเก็บใน Cloud ไม่หาย ยกเว้น Session Login จะหมดเมื่อปิด browser ต้อง Login ใหม่</td>
+        </tr>
+        <tr>
+          <td><strong>อยากเพิ่มสถานที่ทำงานใหม่</strong></td>
+          <td>ติดต่อ Admin → เมนู "สถานที่" → เพิ่มสถานที่ใหม่ได้</td>
+        </tr>
+        <tr>
+          <td><strong>วันหยุดนักขัตฤกษ์ไม่แสดง</strong></td>
+          <td>ติดต่อ Admin → เมนู "วันหยุด" → เพิ่มวันหยุดนั้น</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div style="text-align:center;padding:40px 0 20px;color:var(--i4);font-size:12px;">
+  Workplace Planner · คู่มือการใช้งาน · ⚡ ร่วมประหยัดพลังงานเพื่อประเทศ
+</div>
+
+</div><!-- page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ พิมพ์คู่มือ / บันทึก PDF</button>
+
+</body>
+</html>

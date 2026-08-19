@@ -1,0 +1,10 @@
+{
+  "name": "workplace-planner",
+  "version": "2.0.0",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0",
+    "bcryptjs": "^2.4.3"
+  }
+}

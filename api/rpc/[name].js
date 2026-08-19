@@ -50,16 +50,23 @@ const handlers = {
 
   async app_users_basic({ p_token }) {
     await requireUser(p_token);
-    const { rows } = await sql`select id, name, username from users order by name`;
+    // The 'admin' account is a system/maintenance login only — it never
+    // has real work-location data and should never show up in presence
+    // lists. Other accounts with role='admin' still show normally.
+    const { rows } = await sql`select id, name, username from users where username <> 'admin' order by name`;
     return rows;
   },
 
   async app_schedule_range({ p_token, p_start, p_end }) {
     await requireUser(p_token);
+    // Same rule as app_users_basic: the 'admin' system account is excluded
+    // from schedule views for everyone; other admin-role users show as usual.
     const { rows } = await sql`
-      select user_id, to_char(date,'YYYY-MM-DD') as date, location_id
-      from schedule
-      where date >= ${p_start}::date and date <= ${p_end}::date`;
+      select s.user_id, to_char(s.date,'YYYY-MM-DD') as date, s.location_id
+      from schedule s
+      join users u on u.id = s.user_id
+      where s.date >= ${p_start}::date and s.date <= ${p_end}::date
+        and u.username <> 'admin'`;
     return rows;
   },
 
